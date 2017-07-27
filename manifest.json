@@ -1,0 +1,61 @@
+{
+  "author": "storeland.ru",
+  "background": {
+    "page": "background.html"
+  },
+  "browser_action": {
+    "default_icon": {
+      "128": "favicon.ico",
+      "20": "favicon.ico",
+      "32": "favicon.ico",
+      "40": "favicon.ico",
+      "48": "favicon.ico",
+      "64": "favicon.ico"
+    },
+    "default_popup": "AddIn.html",
+    "default_title": "Storeland Server: печать чеков на ККТ"
+  },
+  "content_scripts": [
+    {
+      "js": [
+        "jquery.min.js",
+        "content.js"
+      ],
+      "matches": [
+        "*://*/*"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "description": "StorelandKKM: Печать чеков на ККТ по 54-ФЗ",
+  "homepage_url": "https://storeland.ru",
+  "icons": {
+    "128": "favicon.ico",
+    "32": "favicon.ico",
+    "48": "favicon.ico",
+    "64": "favicon.ico"
+  },
+  "manifest_version": 2,
+  "name": "storeland.addin",
+  "offline_enabled": true,
+  "permissions": [
+    "background",
+    "nativeMessaging",
+    "storage",
+    "\u003Call_urls>",
+    "https://kkmserver.ru/*",
+    "http://forum.kkmserver.ru/*",
+    "http://localhost/*",
+    "https://storeland.ru/*",
+    "http://storeland.ru/*"
+  ],
+  "content_security_policy": "script-src 'self'; object-src 'self'",
+  "short_name": "Storeland kkm",
+  "update_url": "https://clients2.google.com/service/update2/crx",
+  "version": "2.0.24.26",
+  "version_name": "2.0.24.26",
+  "web_accessible_resources": [
+    "jquery.min.js",
+    "injected.js"
+  ]
+}

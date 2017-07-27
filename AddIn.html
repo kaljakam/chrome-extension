@@ -1,0 +1,104 @@
+﻿<html>
+<head>
+    <script src="jquery.min.js" type="text/javascript"></script>
+    <script src="jquery.json.min.js" type="text/javascript"></script>
+    <script src="AddIn.js" type="text/javascript"></script>
+    <script src="sample.js" type="text/javascript"></script>
+    <!--<script src="injected.js" type="text/javascript"></script>-->
+</head>
+
+<body style="width: 320px; margin: 0px;font-size: 100%;" link="#000" vlink="#000" alink="#000">
+    <header style="background-color: #28344f;height: 52px;padding: 6px;">
+        <div>
+            <img src="AddIn_w.png" width="48" height="48" style="float: left;margin-right: 12px;margin-top: 4px;">
+            <div>
+                <p style="margin: 0px;color: #FFF;font-size: 26px;margin-top: -2px;">KKM Server:</p>
+                <p style="margin: 0px;color: #FFF;font-size: 12px;">Расширение для печати чеков на ККТ</p>
+            </div>
+        </div>
+    </header>
+    <div id="DivRun" style="margin-bottom: 8px;">
+        <select id="SetServer" style="margin: 8px 10px 2px; border-style: solid; border-radius: 12px; width: 298px; display: block; font-size: 16px; padding-left: 4px; outline: none;"><option value="AddIn">Встроенный сервер ККТ</option><option value="">Другой сервер...</option></select>
+
+        <div id="DivInputServer" style="display: none;">
+            <input id="InputServer" type="text" style="margin: 8px 2px 2px 8px;border-style: solid;border-radius: 12px;border-width: 1px;border-color: rgb(165, 165, 165);width: 284px;float: left;font-size: 16px;padding-left: 4px;outline: none;" value="">
+            <input id="InputServerClear" type="submit" value="x" style="width: 12px;border-radius: 12px;border-style: none;margin-top: 9px;height: 20px;float: left;background-color: rgb(255, 255, 255);padding-left: 2px;font-size: 18px;">
+        </div>
+
+        <p id="LabelUser" style="margin: 10px 8px 2px; float: left; font-size: 16px; display: none;">User:</p>
+        <input id="User" type="text" style="margin-bottom: 2px; border-style: solid; border-radius: 12px; border-width: 1px; border-color: rgb(165, 165, 165); width: 252px; float: left; margin-top: -24px; margin-left: 54px; padding-left: 8px; font-size: 16px; display: none; outline: none;" value="">
+
+        <p id="LabelPass" style="margin: 10px 8px 2px; float: left; font-size: 16px; display: none;">Pass:</p>
+        <input id="Pass" type="password" style="margin-bottom: 2px; border-style: solid; border-radius: 12px; border-width: 1px; border-color: rgb(165, 165, 165); width: 252px; float: left; margin-top: -24px; margin-left: 54px; padding-left: 8px; font-size: 16px; display: none; outline: none;" value="">
+
+        <input id="Settings" type="submit" value="Настроить" style="width: 297px;margin: 10px 10px 2px 10px;background: #85AB70;border-color: rgba(105, 105, 105, 1);font-weight: bold;border-radius: 12px;border-width: 1px;font-size: 16px;">
+
+    </div>
+    <div style="margin-bottom: 0px;border-top-style: solid;border-top-width: 1px;color: #4c7b3d;height: 110px;">
+        <p id="Label" style="margin: 0px 8px 0px;padding-top: 4px;font-size: 14px;color: #4c7b3d;">Значения по умолчанию:</p>
+
+        <div style="display:inline">
+            <p id="LabelDefaultKkt" style="width:57px; margin: 10px 8px 2px;float: left;font-size: 16px;">ККТ:</p>
+            <select id="DefaultKkt" style="margin-bottom: 2px;border-style: solid;border-radius: 12px;border-width: 1px;border-color: #a5a5a5;width: 232px;margin-top: 10px;padding-left: 8px;font-size: 16px;outline: none;"><option value="0">Нет</option></select>
+        </div>
+
+        <div id="DivSetDefaultCashierName" style="display: inline;">
+            <p id="LabelSetDefaultCashierName" style="width:57px; margin: 10px 8px 2px;float: left;font-size: 16px;">Кассир:</p>
+            <select id="SetDefaultCashierName" style="margin-bottom: 2px;border-style: solid;border-radius: 12px;border-width: 1px;border-color: rgb(165, 165, 165);width: 232px;margin-top: 10px;padding-left: 8px;font-size: 16px;outline: none;"><option value="Иванов И.И.">Иванов И.И.</option><option value="">Другой..</option></select>
+        </div>
+
+        <div id="DivDefaultCashierName" style="display: none;">
+            <p id="LabelDefaultCashierName" style="width:57px; margin: 10px 8px 2px;float: left;font-size: 16px;">Кассир:</p>
+            <input id="DefaultCashierName" type="text" style="margin-bottom: 2px;border-style: solid;border-radius: 12px;border-width: 1px;border-color: #a5a5a5;width: 220px;margin-top: 10px;padding-left: 8px;font-size: 16px;outline: none;float: left;/* display: none; */" value="">
+            <input id="DefaultCashierNameClear" type="submit" value="x" style="width: 12px;border-radius: 12px;border-style: none;margin-top: 10px;height: 20px;float: left;background-color: rgb(255, 255, 255);padding-left: 2px;font-size: 18px;margin-left: 2px;">
+        </div>
+
+        <button id="sendCheck">Чек</button>
+        <button id="sendCheckRefund">Возврат</button>
+        <button id="openShift">Открыть</button>
+        <button id="ZReport">Закрыть</button>
+        <button id="play" data-value="1">play</button>
+        <div id="Responce"></div>
+    </div>
+    <div id="DivNotRun" style="height: 160px; display: none; border-top-style: solid; border-top-width: 1px; padding-top: 8px;">
+        <p id="LabelInstall" style="margin: -4px 8px 2px;float: left;font-size: 14px;color: #062392;">Компонента доступа к оборудованию не установлена.</p>
+        <!--<a href="https://KkmServer.ru/Donload/Setup_AddIn.exe" style="margin: 4px 10px; font-size: 160%;"><span class="gt-ft-mkt-icon" id="gt-ft-mkt-toolkit"></span>Установить приложение</a>-->
+        <input id="GetApp" type="submit" value="Установить компоненту" style="width: 297px;margin: 10px;background: #85AB70;border-color: rgba(105, 105, 105, 1);font-weight: bold;border-radius: 12px;border-width: 1px;font-size: 16px;">
+        <p style="margin: -4px 8px 2px;float: left;font-size: 12px;color: #50b36a;">
+            • При нажатии по кнопке начнется скачивание установщика компоненты.<br>
+            • Запустите установщик и следуйте инструкциям<br>
+            • После установки перезапустите браузер<br>
+        </p>
+    </div>
+    <!--<div style="min-width: 100%; min-height: 100%; position: relative;">
+    </div>-->
+    <footer style="width: 100%;background-color: #f5f5f5;height: 30px;margin: 0px;border-top-style: inset;border-top-width: 1px;">
+        <ul style="margin: 1px; list-style-type: none; padding: 6px;">
+            <li>
+                <div id="Version" style="float: left;font-size: 13px;padding-right: 18px;margin-top: 0px;">
+                    Ver: 2.0.23.23
+                </div>
+            </li>
+            <li>
+                <a id="Home" href="https://kkmserver.ru" style="float: left;margin-right: 10px;text-decoration: none;color: #3b9946;font-size: 13px;">
+                    <img src="Home.png" width="18px" height="18px" style="float: left;margin-right: 0px;margin-top: 0px;">
+                    Номе
+                </a>
+            </li>
+            <li>
+                <a id="Forum" href="http://forum.kkmserver.ru" style="float: left;margin-right: 10px;text-decoration: none;font-size: 13px;">
+                    <img src="Forum.png" width="18px" height="18px" style="float: left;margin-right: 1px;margin-top: 0px;">
+                    Форум
+                </a>
+            </li>
+            <li>
+                <a id="Mail" href="mailto:kkmserver@gmail.com" style="float: left;margin-right: 0px;text-decoration: none;font-size: 13px;">
+                    <img src="Email.png" width="18px" height="18px" style="float: left;margin-right: 1px;margin-top: 0px;">
+                    Написать
+                </a>
+            </li>
+        </ul>
+    </footer>
+
+</body>
+</html>
